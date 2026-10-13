@@ -77,7 +77,7 @@ function frame(time){
  render();lastTime=time;raf=0;if(playing)raf=requestAnimationFrame(frame);
 }
 function request(){if(!raf)raf=requestAnimationFrame(frame)}
-function pause(){playing=false;$('.cinema-play').innerHTML='▷ <span>PLAY JOURNEY</span>';$('.cinema-play').setAttribute('aria-label','Play journey');$('.cinema-play').setAttribute('aria-pressed','false')}
+function pause(){playing=false;$('.cinema-play').innerHTML='<svg class="ico-play" viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true" style="vertical-align:-0.1em"><path d="M8 5v14l11-7z"/></svg> <span>PLAY JOURNEY</span>';$('.cinema-play').setAttribute('aria-label','Play journey');$('.cinema-play').setAttribute('aria-pressed','false')}
 $('.cinema-play').addEventListener('click',()=>{if(playing){pause();return}position=scrollY>=limit-2?0:scrollY;lastTime=performance.now();playing=true;$('.cinema-play').innerHTML='Ⅱ <span>PAUSE</span>';$('.cinema-play').setAttribute('aria-label','Pause journey');$('.cinema-play').setAttribute('aria-pressed','true');request()});
 function go(index){pause();index=Math.min(names.length-1,Math.max(0,index));scrollTo({top:stops[index],behavior:low?'instant':'smooth'});history.replaceState(null,'','#'+keys[index])}
 $('.cinema-prev').addEventListener('click',()=>go(current-1));$('.cinema-next').addEventListener('click',()=>go(current+1));
