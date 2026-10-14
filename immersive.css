@@ -68,13 +68,11 @@ header .skip span{display:block;line-height:1}
 .detail-body .package-note{margin-top:22px}.package-instruction{font-size:17px;margin-top:7px}
 @media(max-width:450px){.contact-dialog{padding:38px 24px 25px}.contact-wordmark{margin-bottom:25px}.contact-dialog h2{font-size:48px}.contact-fields{gap:12px}}
 
-/* The proof: show the complete activation beside the copy on desktop. */
+/* The proof retains the cinematic full-bleed composition with a gentler crop. */
 @media(min-width:701px){
- .chapter-scene[data-key="partners"]{background:#10191a}
- .chapter-scene[data-key="partners"]>.landscape{inset:16% 4% 17% 41%;transform:none!important;will-change:auto;display:flex;align-items:center}
- .chapter-scene[data-key="partners"]>.landscape img{object-fit:contain;object-position:center;width:100%;height:100%}
- .chapter-scene[data-key="partners"]>.landscape-shade{display:none}
- .chapter-scene[data-key="partners"]>.scene-copy{left:4.5%;width:32%;top:49%;translate:none!important}
- .chapter-scene[data-key="partners"] .scene-copy h2{font-size:clamp(36px,4vw,64px);line-height:1.04}
- .chapter-scene[data-key="partners"] .scene-description{font-size:clamp(19px,1.7vw,25px)}
+ .chapter-scene[data-key="partners"]>.landscape{inset:0;transform:none!important;will-change:auto}
+ .chapter-scene[data-key="partners"]>.landscape img{object-fit:cover;object-position:70% 42%}
+ .chapter-scene[data-key="partners"]>.landscape-shade{background:linear-gradient(90deg,rgba(8,10,14,.85) 0%,rgba(8,10,14,.64) 32%,rgba(8,10,14,.12) 65%,transparent 90%),linear-gradient(0deg,rgba(8,10,14,.65),transparent 30%)}
+ .chapter-scene[data-key="partners"]>.scene-copy{width:43%;left:6%}
+ .chapter-scene[data-key="partners"] .scene-copy h2{font-size:clamp(44px,4.8vw,76px)}
 }
