@@ -13,7 +13,7 @@ Official guide: https://docs.github.com/en/pages/configuring-a-custom-domain-for
 This package does not publish the site or change DNS. Set the Pages custom domain before the DNS record. Certificate provisioning can take time.
 
 ## Included
-18 cinematic chapters, responsive detail panels, a comparison table, map zoom, chapter navigation, reduced motion and pause controls. All fonts and photographs are local. Contact buttons open email to mitch@imxp.org; no form data is collected.
+18 cinematic chapters, responsive detail panels, a comparison table, map zoom, chapter navigation, reduced motion and pause controls. All fonts and photographs are local. Contact buttons open a branded enquiry popup. Submissions go directly to Customer.io hosted Forms (Egypt Eclipse workspace), then return to the invitation with a thank-you confirmation. The form collects email, optional name/company, selected partnership level, and contact-request context. The running “Egypt Eclipse | Partnership enquiries” automation sends an internal notification to mitch@imxp.org. No private API key is included in this package.
 
 Title: Egypt Eclipse 2027 | Your Partnership Invitation
 Description: Join a global community for ten days along the Nile, six minutes of totality, and extraordinary experiences in Luxor and Giza. Explore Egypt Eclipse partnerships.
