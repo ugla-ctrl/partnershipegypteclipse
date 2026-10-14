@@ -76,3 +76,7 @@ header .skip span{display:block;line-height:1}
  .chapter-scene[data-key="partners"]>.scene-copy{width:43%;left:6%}
  .chapter-scene[data-key="partners"] .scene-copy h2{font-size:clamp(44px,4.8vw,76px)}
 }
+
+/* Preserve the face and engraved detail behind the inclusions copy. */
+.chapter-scene[data-key="inclusions"]>.landscape img{object-position:40% 45%}
+@media(min-width:701px){.chapter-scene[data-key="inclusions"]>.scene-copy{left:6%;top:36%;width:43%}.chapter-scene[data-key="inclusions"]>.landscape-shade{background:linear-gradient(90deg,#080a0ec9, #080a0e55 42%,transparent 78%),linear-gradient(0deg,#080a0e88,transparent 40%)}}
