@@ -118,22 +118,20 @@ addEventListener('click',e=>{
  if(contactOwnLock)lock();else pause();
  contactForm.elements.tier.value=trigger.dataset.contact||'General';
  $('.contact-tier').textContent=contactForm.elements.tier.value==='General'?'':contactForm.elements.tier.value+' partnership';
- contactStatus.textContent='';contact.showModal();contactForm.elements.email.focus();
+ contactForm.hidden=false;$('#contact-title').textContent='Let’s align.';$('.contact-intro').textContent='Leave your email and Mitch will be in touch to explore your partnership.';contactStatus.textContent='';contact.showModal();contactForm.elements.email.focus();
 });
 $('.contact-close').addEventListener('click',()=>contact.close());
 contact.addEventListener('close',()=>{if(contactOwnLock)unlock();contactTrigger?.focus({preventScroll:true})});
 contact.addEventListener('click',e=>{if(e.target===contact){const r=contact.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)contact.close()}});
-contactForm.addEventListener('submit',async e=>{
- e.preventDefault();if(contactSending||!contactForm.reportValidity())return;
- if(contactForm.elements.website.value){contactStatus.textContent='Your request could not be sent. Please try again.';return;}
- const endpoint=document.querySelector('meta[name="partnership-contact-endpoint"]')?.content;
- if(!endpoint){contactStatus.textContent='This form isn’t connected yet. Your details have not been sent.';return;}
- contactSending=true;const button=$('.contact-submit');button.disabled=true;contactStatus.textContent='Sending your request…';
- try{
- const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
- let response;try{response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...Object.fromEntries(new FormData(contactForm)),source:'egypt-eclipse-partnership',contact_requested:true}),signal:controller.signal});}finally{clearTimeout(timer)}
- const result=await response.json();if(!response.ok||result.ok!==true)throw new Error('Submission failed');
- contactForm.reset();$('.contact-tier').textContent='';contactStatus.textContent='Thank you. Your request has been received. Mitch will be in touch.';
- }catch(error){contactStatus.textContent='Your request could not be confirmed. Please try again.';}finally{contactSending=false;button.disabled=false;}
+contactForm.addEventListener('submit',e=>{
+ if(contactSending||!contactForm.reportValidity()||contactForm.elements.website.value){e.preventDefault();return;}
+ contactSending=true;$('.contact-submit').disabled=true;contactStatus.textContent='Sending your request…';
 });
+addEventListener('pageshow',()=>{contactSending=false;$('.contact-submit').disabled=false;});
+if(new URLSearchParams(location.search).get('enquiry')==='received'){
+ contactOwnLock=true;lock();contact.showModal();contactForm.hidden=true;
+ $('#contact-title').textContent='Thank you.';
+ $('.contact-intro').textContent='Your partnership request has been received. Mitch will be in touch.';
+ history.replaceState(null,'',location.pathname+location.hash);
+}
 })();
