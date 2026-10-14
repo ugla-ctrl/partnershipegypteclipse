@@ -105,8 +105,35 @@ pins.forEach(b=>b.addEventListener('click',()=>openPanel(b.dataset.place==='aswa
 function motion(){document.body.dataset.lowMotion=String(low);$('.cinema-motion').textContent=low?'ENABLE MOTION':'LESS MOTION';$('.cinema-motion').setAttribute('aria-pressed',String(low));pause();request()}
 $('.cinema-motion').addEventListener('click',()=>{low=!low;motion()});
 ['wheel','touchstart','pointerdown'].forEach(type=>addEventListener(type,e=>{if(playing&&!e.target.closest('.cinema-play'))pause()},{passive:true}));
-addEventListener('keydown',e=>{if(detail.open||chapterDialog.open)return;if(['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(e.key))pause();if(e.key==='ArrowRight'){e.preventDefault();go(current+1)}if(e.key==='ArrowLeft'){e.preventDefault();go(current-1)}});
+addEventListener('keydown',e=>{if(detail.open||chapterDialog.open||document.querySelector('.contact-dialog')?.open)return;if(['ArrowDown','ArrowUp','PageDown','PageUp','Home','End',' '].includes(e.key))pause();if(e.key==='ArrowRight'){e.preventDefault();go(current+1)}if(e.key==='ArrowLeft'){e.preventDefault();go(current-1)}});
 addEventListener('scroll',request,{passive:true});addEventListener('resize',()=>{const oldY=scrollY,oldOpening=openingLength,oldSpan=span;measure();const next=oldY<=oldOpening?oldY/oldOpening*openingLength:openingLength+(oldY-oldOpening)/oldSpan*span;scrollTo({top:next,behavior:'instant'});position=next;request()});addEventListener('visibilitychange',()=>{if(document.hidden)pause()});
 function fromHash(){const key=location.hash.slice(1),index=key.startsWith('chapter-')?+key.slice(8):keys.indexOf(key);if(index>=0&&index<keys.length){scrollTo({top:stops[index],behavior:'instant'});request()}}
 addEventListener('hashchange',fromHash);measure();motion();fromHash();render();
+
+const contact=$('.contact-dialog'),contactForm=$('#partnership-contact'),contactStatus=$('.contact-status');
+let contactTrigger=null,contactOwnLock=false,contactSending=false;
+addEventListener('click',e=>{
+ const trigger=e.target.closest('[data-contact]');if(!trigger)return;
+ e.preventDefault();contactTrigger=trigger;contactOwnLock=!detail.open&&!chapterDialog.open;
+ if(contactOwnLock)lock();else pause();
+ contactForm.elements.tier.value=trigger.dataset.contact||'General';
+ $('.contact-tier').textContent=contactForm.elements.tier.value==='General'?'':contactForm.elements.tier.value+' partnership';
+ contactStatus.textContent='';contact.showModal();contactForm.elements.email.focus();
+});
+$('.contact-close').addEventListener('click',()=>contact.close());
+contact.addEventListener('close',()=>{if(contactOwnLock)unlock();contactTrigger?.focus({preventScroll:true})});
+contact.addEventListener('click',e=>{if(e.target===contact){const r=contact.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)contact.close()}});
+contactForm.addEventListener('submit',async e=>{
+ e.preventDefault();if(contactSending||!contactForm.reportValidity())return;
+ if(contactForm.elements.website.value){contactStatus.textContent='Your request could not be sent. Please try again.';return;}
+ const endpoint=document.querySelector('meta[name="partnership-contact-endpoint"]')?.content;
+ if(!endpoint){contactStatus.textContent='This form isn’t connected yet. Your details have not been sent.';return;}
+ contactSending=true;const button=$('.contact-submit');button.disabled=true;contactStatus.textContent='Sending your request…';
+ try{
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
+ let response;try{response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...Object.fromEntries(new FormData(contactForm)),source:'egypt-eclipse-partnership',contact_requested:true}),signal:controller.signal});}finally{clearTimeout(timer)}
+ const result=await response.json();if(!response.ok||result.ok!==true)throw new Error('Submission failed');
+ contactForm.reset();$('.contact-tier').textContent='';contactStatus.textContent='Thank you. Your request has been received. Mitch will be in touch.';
+ }catch(error){contactStatus.textContent='Your request could not be confirmed. Please try again.';}finally{contactSending=false;button.disabled=false;}
+});
 })();
