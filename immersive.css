@@ -124,3 +124,7 @@ header .skip span{display:block;line-height:1}
 .chapter-scene[data-key="tradition"] .scene-copy h2{font-size:clamp(42px,4.3vw,68px)}
 .chapter-scene[data-key="tradition"]>.landscape-shade{background:linear-gradient(270deg,#080a0ee8, #080a0ea8 27%,#080a0e11 56%,transparent 75%),linear-gradient(0deg,#080a0e88,transparent 32%)}
 }
+
+/* Six package options remain readable in the scrollable comparison. */
+.comparison{min-width:1080px}
+.comparison th:not(:first-child),.comparison td{min-width:130px}
