@@ -116,3 +116,11 @@ header .skip span{display:block;line-height:1}
  .detail-body .sponsor-grid{grid-template-columns:repeat(2,minmax(0,1fr));padding:24px 20px;gap:24px 22px}
  .detail-body .sponsor-grid img{height:65px}
 }
+
+.chapter-scene[data-key="tradition"]>.landscape img{object-position:46% 42%}
+@media(min-width:701px){
+.chapter-scene[data-key="tradition"]>.landscape{inset:0;transform:none!important;will-change:auto}
+.chapter-scene[data-key="tradition"]>.scene-copy{right:5%;width:32%}
+.chapter-scene[data-key="tradition"] .scene-copy h2{font-size:clamp(42px,4.3vw,68px)}
+.chapter-scene[data-key="tradition"]>.landscape-shade{background:linear-gradient(270deg,#080a0ee8, #080a0ea8 27%,#080a0e11 56%,transparent 75%),linear-gradient(0deg,#080a0e88,transparent 32%)}
+}
