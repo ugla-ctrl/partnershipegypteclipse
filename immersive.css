@@ -86,7 +86,7 @@ header .skip span{display:block;line-height:1}
 /* Reach: keep the eclipse above the horizon visible on wide screens. */
 @media(min-width:701px){
  .chapter-scene[data-key="proof"]>.landscape{inset:0;transform:none!important;will-change:auto}
- .chapter-scene[data-key="proof"]>.landscape img{object-position:50% 26%}
+ .chapter-scene[data-key="proof"]>.landscape img{object-position:50% 33%}
  .chapter-scene[data-key="proof"]>.landscape-shade{background:linear-gradient(270deg,#080a0ee0, #080a0e99 36%,transparent 68%),linear-gradient(0deg,#080a0e99,transparent 35%)}
  .chapter-scene[data-key="proof"]>.scene-copy{left:auto;right:6%;width:45%;top:46%}
  .chapter-scene[data-key="proof"]>.scene-detail{left:6%;right:auto;bottom:15%;text-align:left}
