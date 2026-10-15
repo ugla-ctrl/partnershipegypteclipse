@@ -91,3 +91,10 @@ header .skip span{display:block;line-height:1}
  .chapter-scene[data-key="proof"]>.scene-copy{left:auto;right:6%;width:45%;top:46%}
  .chapter-scene[data-key="proof"]>.scene-detail{left:6%;right:auto;bottom:15%;text-align:left}
 }
+
+/* IMXP chapters: retain the setting and production scale. */
+.chapter-scene[data-key="calendar"]>.landscape img{object-position:58% 52%}
+.chapter-scene[data-key="team"]>.landscape img{object-position:42% 50%}
+@media(min-width:701px){
+ .chapter-scene[data-key="calendar"]>.landscape,.chapter-scene[data-key="team"]>.landscape{inset:-2%;transform:scale(1.02)!important;will-change:auto}
+}
